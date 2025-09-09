@@ -86,3 +86,25 @@ def get_case_by_id(case_id):
     if not case:
         return {"message": "Case not found"}, 404
     return case.to_dict()
+
+
+def get_all_cases():
+    """Fetch all cases from all users"""
+    cases = Case.query.order_by(Case.created_at.desc()).all()
+    return [case.to_dict() for case in cases]
+
+
+def get_all_statuses():
+    from app.main.models.status import Status
+    statuses = Status.query.all()
+    return [s.to_dict() for s in statuses]
+
+def update_case_status(case_id, new_status_id):
+    from app.main.models.cases import Case
+    case = Case.query.get(case_id)
+    if not case:
+        return {"message": "Case not found"}, 404
+    case.status_id = new_status_id
+    from extensions import db
+    db.session.commit()
+    return case.to_dict()

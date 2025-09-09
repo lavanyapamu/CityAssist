@@ -19,6 +19,8 @@ class User(db.Model):
     role_id = db.Column(db.SmallInteger, db.ForeignKey("roles.role_id"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     is_verified = db.Column(db.Boolean, default=False)
+    photo = db.Column(db.String(255), nullable=True)
+
 
     role = db.relationship("Role", back_populates="users")
     cases = db.relationship("Case", back_populates="user", lazy=True, cascade="all, delete")
@@ -38,5 +40,6 @@ class User(db.Model):
             "postal_code": self.postal_code,
             "role": self.role.name if self.role else None,
             "is_verified": self.is_verified,
+            "photo": self.photo ,
             "created_at": self.created_at.isoformat()
         }

@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_restx import Namespace, Resource
-from app.main.services.user import register_user, login_user
+from app.main.services.user import get_user_by_id, register_user, login_user, update_user
 from app.main.dto.user import user_ns
 
 api = user_ns
@@ -34,3 +34,14 @@ class LoginUser(Resource):
                 "role": user.role.name
             }, 200
         return result  
+
+@api.route('/<int:user_id>')
+class UserProfile(Resource):
+    def get(self, user_id):
+        """Fetch user profile by ID"""
+        return get_user_by_id(user_id)
+    def put(self, user_id):
+        """Update user profile with optional photo"""
+        data = request.form.to_dict()
+        files = request.files  # ✅ pass dict instead of single file
+        return update_user(user_id, data, files)

@@ -8,7 +8,8 @@ def create_app():
     """
     Flask app factory function.
     """
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path="/static",   # URL prefix
+    static_folder="static" )
     app.config.from_object(Config)
 
    

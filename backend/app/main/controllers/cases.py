@@ -3,7 +3,7 @@ from app.main.models.cases import Case
 from flask_restx import Resource
 from flask import request
 from app.main.dto.cases import case_ns
-from app.main.services.cases import add_case, get_user_cases, update_case, delete_case, get_all_categories
+from app.main.services.cases import add_case, get_all_cases, get_all_statuses, get_user_cases, update_case, delete_case, get_all_categories, update_case_status
 
 api = case_ns
 
@@ -52,3 +52,24 @@ class SingleCase(Resource):
     def get(self, case_id):
         from app.main.services.cases import get_case_by_id
         return get_case_by_id(case_id)
+    
+
+
+@api.route('/all')
+class AllCases(Resource):
+    """Fetch all cases from all users"""
+    def get(self):
+        return get_all_cases(), 200
+
+@api.route('/status/all')
+class AllStatuses(Resource):
+    def get(self):
+        return get_all_statuses(), 200
+
+@api.route('/status/<int:case_id>')
+class UpdateCaseStatus(Resource):
+    """Update case status"""
+    def put(self, case_id):
+        data = request.json
+        status_id = data.get('status_id')
+        return update_case_status(case_id, status_id)
