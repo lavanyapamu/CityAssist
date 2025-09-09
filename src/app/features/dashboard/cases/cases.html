@@ -1,0 +1,35 @@
+
+ 
+<div class="container mt-4">
+      <h4 *ngIf="cases.length > 0">Hello, {{ cases[0].name }}</h4>
+      <h5>My Cases</h5>
+
+    <div *ngIf="cases.length === 0" class="alert alert-info">
+        No cases found.
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3" *ngFor="let case of cases">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <img *ngIf="case.photo" [src]="case.photo" class="img-fluid rounded mt-2" alt="Case Photo">
+                    <h5 class="card-title fw-bold" >{{ case.title }}</h5>
+                    <p class="card-text">{{ case.description }}</p>
+
+                    <p *ngIf="case.category_name"><strong>Category:</strong> {{ case.category_name }}</p>
+                    <p *ngIf="case.status_name"><strong>Status:</strong> {{ case.status_name }}</p>
+                    <p *ngIf="case.location"><strong>Location:</strong> {{ case.location }}</p>
+
+                    
+                </div>
+                <div class="card-footer text-muted">
+                   
+                    <div>
+                        <button class="btn btn-sm btn-primary me-2" (click)="editCase(case)">Edit</button>
+                        <button class="btn btn-sm btn-danger" (click)="deleteCase(case.case_id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

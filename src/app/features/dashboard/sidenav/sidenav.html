@@ -1,0 +1,23 @@
+<main class="main-content">
+    <aside class="sidebar">
+        <a [routerLink]="['/dashboard/cases']" routerLinkActive="active" class="sidebar-item">
+            <i class="fas fa-chart-bar sidebar-icon text-primary"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+
+        <a [routerLink]="['/dashboard/fileacase']" routerLinkActive="active" class="sidebar-item">
+            <i class="fas fa-receipt sidebar-icon text-success"></i>
+            <span class="sidebar-text">File a Case</span>
+        </a>
+
+        <a [routerLink]="['/dashboard/profile']" routerLinkActive="active" class="sidebar-item">
+            <i class="fas fa-cog sidebar-icon"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+
+        <div class="sidebar-item logout-item" (click)="logout()">
+            <i class="fas fa-sign-out-alt sidebar-icon"></i>
+            <span class="sidebar-text">Logout</span>
+        </div>
+    </aside>
+</main>

@@ -1,0 +1,72 @@
+<div class="container mt-4" *ngIf="user">
+    <h2>Profile</h2>
+
+    <!-- Profile Picture -->
+    <div class="text-center mb-3">
+        <img [src]="user.photo ? 'http://localhost:5000/static/uploads/' + user.photo : 'https://via.placeholder.com/120'"
+            alt="Profile Picture" class="rounded-circle shadow-sm" width="120" height="120">
+    </div>
+
+
+    <div class="card p-3 shadow-sm">
+        <!-- Readonly fields -->
+        <ng-container *ngIf="!isEditing; else editMode">
+            <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+            <p><strong>Address:</strong> {{ user.colony }}, {{ user.city }}, {{ user.state }} - {{ user.postal_code }}
+            </p>
+            <p><strong>Joined:</strong> {{ user.created_at | date:'medium' }}</p>
+            <p><strong>Role:</strong> {{ user.role }}</p>
+
+            <button class="btn btn-primary mt-2" (click)="enableEdit()">Edit Profile</button>
+        </ng-container>
+
+        <!-- Editable fields -->
+        <ng-template #editMode>
+            <form (ngSubmit)="saveProfile()" #profileForm="ngForm" enctype="multipart/form-data">
+                <div class="mb-2">
+                    <label>Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.first_name" name="first_name">
+                </div>
+                <div class="mb-2">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.last_name" name="last_name">
+                </div>
+                <div class="mb-2">
+                    <label>Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="user.email" name="email">
+                </div>
+                <div class="mb-2">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.phone_number" name="phone_number">
+                </div>
+                <div class="mb-2">
+                    <label>Colony</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.colony" name="colony">
+                </div>
+                <div class="mb-2">
+                    <label>City</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.city" name="city">
+                </div>
+                <div class="mb-2">
+                    <label>State</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.state" name="state">
+                </div>
+                <div class="mb-2">
+                    <label>Postal Code</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.postal_code" name="postal_code">
+                </div>
+
+                <!-- Profile Picture Upload -->
+                <div class="mb-2">
+                    <label>Profile Picture</label>
+                    <input type="file" class="form-control" (change)="onFileSelected($event)">
+                </div>
+
+                <button type="submit" class="btn btn-success mt-2">Save</button>
+                <button type="button" class="btn btn-secondary mt-2 ms-2" (click)="cancelEdit()">Cancel</button>
+            </form>
+        </ng-template>
+    </div>
+</div>

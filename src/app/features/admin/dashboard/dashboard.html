@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>All Cases</h2>
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>User ID</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let caseItem of cases">
+        <td>{{ caseItem.case_id }}</td>
+        <td>{{ caseItem.title }}</td>
+        <td>{{ caseItem.user_id }}</td>
+        <td>{{ caseItem.category_id }}</td>
+        <td>
+          <select class="form-select" [(ngModel)]="caseItem.status_id">
+            <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
+          </select>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="updateStatus(caseItem)">Update</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

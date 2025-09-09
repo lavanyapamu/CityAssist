@@ -1,0 +1,52 @@
+<div class="container mt-4">
+    <h3>Edit Case</h3>
+
+    <form (ngSubmit)="updateCase()" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" [(ngModel)]="case.title" name="title" [disabled]="!isEditMode"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" [(ngModel)]="case.description" name="description" [disabled]="!isEditMode"
+                required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" [(ngModel)]="case.category_id" name="category_id" [disabled]="!isEditMode">
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <input type="text" class="form-control" [value]="case.status_name" disabled>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Location</label>
+            <input type="text" class="form-control" [(ngModel)]="case.location" name="location"
+                [disabled]="!isEditMode">
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Photo</label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" [disabled]="!isEditMode">
+            <img *ngIf="case.photo" [src]="case.photo" class="img-fluid mt-2" alt="Case Photo">
+        </div>
+
+        <div class="mt-3">
+            <button type="button" class="btn btn-secondary me-2" (click)="enableEdit()"
+                *ngIf="!isEditMode">Edit</button>
+            <button type="submit" class="btn btn-primary" *ngIf="isEditMode">Save</button>
+            <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">Cancel</button>
+        </div>
+
+    </form>
+</div>
