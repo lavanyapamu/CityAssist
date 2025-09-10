@@ -8,13 +8,19 @@ import { Router } from '@angular/router';
   imports: [RouterLink, RouterModule],
   templateUrl: './sidenav.html',
   styleUrls: ['./sidenav.css']
-
 })
 export class Sidenav {
-   constructor(private router: Router) {}
-    logout(): void {
+  sidebarOpen = false;
+
+  constructor(private router: Router) {}
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  logout(): void {
     if (confirm('Are you sure you want to log out?')) {
-      localStorage.clear(); // removes all localStorage keys
+      localStorage.clear();
       this.router.navigate(['login']);
     }
   }

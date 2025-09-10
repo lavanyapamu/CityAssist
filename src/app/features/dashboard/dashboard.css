@@ -1,7 +1,13 @@
 .dashboard-content {
-  padding-left: 60px;        
- 
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* Same as sidebar width */
+  transition: margin-left 0.3s ease-in-out;
 }
 
-
-
+/* On tablet/mobile → no sidebar margin */
+@media (max-width: 992px) {
+  .dashboard-content {
+    margin-left: 0;
+  }
+}
