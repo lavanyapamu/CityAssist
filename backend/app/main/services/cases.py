@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 
 
-UPLOAD_FOLDER = '/home/lavanya/Desktop/CityAssist/backend/static/uploads'
+UPLOAD_FOLDER = '/home/lavanya/Downloads/Lavanya_CityAssist/Cityassist/CityAssist/backend/static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def add_case(data, files):
     pending_status = Status.query.filter_by(name="Pending").first()
